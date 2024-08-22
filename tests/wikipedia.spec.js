@@ -29,4 +29,35 @@ describe("wikipedia", async () => {
 
         await expect(page.locator("//ul[@id='mw-panel-toc-list']/li/a")).toHaveCount(15);
     });
+
+    test('check navigate Steam', async ({ page }) => {
+        await page.goto("https://store.steampowered.com/")
+
+        const logo = page.locator('.logo');
+        await expect(logo).toBeVisible();
+
+        await page.getByRole('link', { name: 'login' }).click();
+        const nameInput = page.locator('#responsive_page_template_content input[type="text"]');
+        await expect(nameInput).toBeVisible();
+        const passwordInput = page.locator('input[type="password"]');
+        await expect(passwordInput).toBeVisible();
+
+        const qrSignIn = page.getByText('Or sign in with QRUse the');
+        await expect(qrSignIn).toBeVisible();
+
+        await page.goBack();
+
+        await page.getByPlaceholder('search').fill("Dota 2");
+        await page.keyboard.press("Enter");
+        await page.getByRole('link', { name: 'Dota 2 9 Jul, 2013 Free' }).click();
+
+        await expect(page.locator('#appHubAppName')).toBeVisible();
+    });
+
+    // test('search for Async/await on JavaScript.info', async ({ page }) => {
+    //     await page.goto('https://javascript.info/');
+
+    //     await page.getByPlaceholder('searchbox', { name: 'Search in the tutorial' }).pressSequentially('Async/await');
+    //     await page.keyboard.press('Enter');
+    // });
 })
