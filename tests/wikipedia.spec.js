@@ -53,11 +53,4 @@ describe("wikipedia", async () => {
 
         await expect(page.locator('#appHubAppName')).toBeVisible();
     });
-
-    // test('search for Async/await on JavaScript.info', async ({ page }) => {
-    //     await page.goto('https://javascript.info/');
-
-    //     await page.getByPlaceholder('searchbox', { name: 'Search in the tutorial' }).pressSequentially('Async/await');
-    //     await page.keyboard.press('Enter');
-    // });
 })
